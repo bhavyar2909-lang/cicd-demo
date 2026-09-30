@@ -28,19 +28,19 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                sh '''
-                docker rm -f demo-app || true
-                docker run -d --name demo-app --network host demo-app:latest
-                '''
-            }
-        }
+	stage('Deploy') {
+ 	   steps {
+	        sh '''
+	        docker rm -f demo-app || true
+	        docker run -d --name demo-app --network cicd-network demo-app:latest
+	        '''
+	    }
+	}
 
-        stage('Health Check') {
-            steps {
-                sh 'curl -f http://localhost:8000/health'
-            }
-        }
+	stage('Health Check') {
+	    steps {
+	        sh 'curl -f http://demo-app:8000/health'
+	    }
+	}
     }
 }
