@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                 docker rm -f demo-app || true
-                docker run -d --name demo-app -p 8000:8000 demo-app:latest
+                docker run -d --name demo-app --network host demo-app:latest
                 '''
             }
         }
